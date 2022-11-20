@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  kafka:
+    bootstrap-servers: linuxserver.cn:9092
+    admin:
+      client-id: tutorial-admin
+    listener:
+      ack-mode: manual
+    consumer:
+      enable-auto-commit: false
+      max-poll-records: 5
+      group-id: turorial-main
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      #gzip, snappy, lz4
+      compression-type: gzip
+      retries: 1

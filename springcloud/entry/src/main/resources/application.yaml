@@ -1,0 +1,17 @@
+server:
+  port: 80
+spring:
+  application:
+    name: tutorial-entry
+  cloud:
+    nacos:
+      server-addr: linuxserver.cn:8848
+    loadbalancer:
+      nacos:
+        enabled: true
+    gateway:
+      routes:
+        - id: data-show
+          uri: lb://data-show
+          predicates:
+            - Path=/show/**
