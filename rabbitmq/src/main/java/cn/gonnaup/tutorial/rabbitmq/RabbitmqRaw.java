@@ -10,6 +10,12 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 使用Rabbitmq client 访问rabbitmq服务
+ * <p>
+ * Exchange类型：<code>direct</code>, <code>fanout</code>, <code>topic</code>, <code>headers</code>
+ * </p>
+ * <a href="https://note.youdao.com/s/GcAROkGm">tutorial</a>
+ *
  * @author gonnaup
  * @version created at 2022/11/19 下午2:00
  */
@@ -21,6 +27,9 @@ public class RabbitmqRaw {
 
     static final String TOPIC_EXCHANGE_NAME = "exchange_token";
 
+    /**
+     * 自定义线程工厂
+     */
     static class CustomerThreadFactory implements ThreadFactory {
 
         private final AtomicInteger threadCount = new AtomicInteger();
@@ -44,13 +53,18 @@ public class RabbitmqRaw {
         }
     }
 
+    /**
+     * Rabbit Connection 生成
+     *
+     * @return
+     */
     public static Connection newRabbitConnection() {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setSharedExecutor(new ThreadPoolExecutor(2, 4, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100),
                 new CustomerThreadFactory("rabbit"), new ThreadPoolExecutor.CallerRunsPolicy()));
         factory.setUsername("guest");
         factory.setPassword("guest");
-        factory.setHost("localhost");
+        factory.setHost("linuxserver.cn");
         factory.setVirtualHost("/");
         try {
             return factory.newConnection("named-conn");
@@ -79,7 +93,8 @@ public class RabbitmqRaw {
             }
             TimeUnit.SECONDS.sleep(5);
         } catch (IOException | TimeoutException | InterruptedException e) {
-            e.printStackTrace();
+            log.error("rabbit client 发送消息发生异常");
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -109,7 +124,8 @@ public class RabbitmqRaw {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("rabbit client 消费端出现异常");
+            throw new RuntimeException(e.getMessage());
         }
     }
 
