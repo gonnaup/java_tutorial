@@ -69,7 +69,7 @@ public final class JsonUtil {
             return mapper.readValue(json, type);
         } catch (IOException e) {
             logger.error(e.getMessage());
-            throw new IllegalArgumentException("错误的json串");
+            throw new IllegalArgumentException("错误的json串", e.getCause());
         }
     }
 

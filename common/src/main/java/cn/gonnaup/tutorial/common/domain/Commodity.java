@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 /**
+ * 模拟商品数据
+ *
  * @author gonnaup
  * @version created at 2022/11/20 上午11:16
  */

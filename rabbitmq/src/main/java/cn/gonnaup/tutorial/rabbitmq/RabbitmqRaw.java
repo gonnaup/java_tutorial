@@ -84,8 +84,21 @@ public class RabbitmqRaw {
             channel.exchangeDeclare(TOPIC_EXCHANGE_NAME, BuiltinExchangeType.TOPIC, true);
             String routingKey = "topic.token.jwt";
             int count = 0;
-            while (++count < 100) {
-                final JwtString jwtString = JwtString.randomJWTString();
+            // 打开生产者的确认模式
+            channel.confirmSelect();
+            channel.addConfirmListener(new ConfirmListener() {
+                @Override
+                public void handleAck(long deliveryTag, boolean multiple) {
+                    log.info("ConfirmListener => {} ack...", deliveryTag);
+                }
+
+                @Override
+                public void handleNack(long deliveryTag, boolean multiple) {
+                    log.info("{} nack", deliveryTag);
+                }
+            });
+            while (++count < 10) {
+                final JwtString jwtString = JwtString.newRandomJWTString();
                 //生产端直接将消息发送到 Exchange
                 channel.basicPublish(TOPIC_EXCHANGE_NAME, routingKey, null, JsonUtil.toJsonBytes(jwtString));
                 log.info("发送消息 => {}", jwtString);
@@ -112,6 +125,8 @@ public class RabbitmqRaw {
             channel.queueDeclare(queueName, true, false, false, null);
             //将队列绑定到 Exchange，并指定 routing key
             channel.queueBind(queueName, TOPIC_EXCHANGE_NAME, TOPIC_ROUTING_KEY);
+            //消费端最大的消息数量
+            channel.basicQos(10);
             String consumerTag = "consumer-1";
             //开始消费
             channel.basicConsume(queueName, false, consumerTag, new DefaultConsumer(channel) {
@@ -119,7 +134,7 @@ public class RabbitmqRaw {
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                     log.info("routingkey {}, contenttype {}, deliverytag {}", envelope.getRoutingKey(), properties.getContentType(), envelope.getDeliveryTag());
                     final JwtString jwtString = JsonUtil.parseToObject(body, JwtString.class);
-                    log.info("content => {}", jwtString);
+                    log.info("接收消息 => content => {}", jwtString);
                     channel.basicAck(envelope.getDeliveryTag(), false);
                 }
             });

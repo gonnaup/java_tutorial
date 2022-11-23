@@ -25,7 +25,7 @@ public class JWTController {
 
     @GetMapping("/jwt/launch")
     ResponseEntity<JwtString> lanuchJWTString() throws ExecutionException, InterruptedException {
-        JwtString jwtString = JwtString.randomJWTString();
+        JwtString jwtString = JwtString.newRandomJWTString();
         ListenableFuture<SendResult<String, JwtString>> send = kafkaTemplate.send(KafkaConst.TOPIC_JWT, jwtString);
         SendResult<String, JwtString> result = send.completable().get();
 

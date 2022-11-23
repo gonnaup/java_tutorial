@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public record JwtString(Integer id, String jwt, Long timestamps) {
 
-    public static JwtString randomJWTString() {
+    public static JwtString newRandomJWTString() {
         return new JwtString(new Random().nextInt(10000, Integer.MAX_VALUE),
                 Base64.getEncoder().encodeToString(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8)), System.currentTimeMillis());
     }

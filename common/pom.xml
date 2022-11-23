@@ -15,8 +15,20 @@
 
     <dependencies>
         <dependency>
+            <!-- 去除 javafaker 中的 snakeyaml-android 依赖，
+            添加非 android snakeyyaml 依赖，避免 jar 包冲突 -->
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
