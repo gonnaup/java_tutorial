@@ -27,8 +27,14 @@ public class RabbitMessageHandler {
                     JwtString.class.getSimpleName(), JwtString.class,
                     Order.class.getSimpleName(), Order.class);
 
+    /**
+     * 手动转换
+     *
+     * @param channel
+     * @param message
+     */
     @RabbitListener(queues = RabbitConfig.QUEUE_NAME)
-    void rabbitmqMessageHandler(Channel channel, Message message) {
+    void rabbitmqByteMessageHandler(Channel channel, Message message) {
         final String routingKey = message.getMessageProperties().getReceivedRoutingKey();
         final String type = routingKey.substring(routingKey.lastIndexOf('.') + 1);
         Object msg = JsonUtil.parseToObject(message.getBody(), Objects.requireNonNull(DICT.get(type), "error message type " + type));
@@ -37,10 +43,40 @@ public class RabbitMessageHandler {
             //确认消息
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (IOException e) {
-            // undo
+            // do nothing
             log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
+
+
+    /**
+     * Json MessageConverter
+     **/
+
+    @RabbitListener(queues = RabbitConfig.QUEUE_OBJECT_COMMODITY_NAME)
+    void rabbitmqCommodityMessageHandler(Commodity commodity, Channel channel, Message message) {
+        log.info("receive converted commodity message {}", commodity);
+        try {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (IOException e) {
+            // do nothing
+            log.error("ack failed!");
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @RabbitListener(queues = RabbitConfig.QUEUE_OBJECT_ORDER_NAME)
+    void rabbitmqOrderMessageHandler(Order order, Channel channel, Message message) {
+        log.info("receive converted order message {}", order);
+        try {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (IOException e) {
+            // do nothing
+            log.error("ack failed!");
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 
 }

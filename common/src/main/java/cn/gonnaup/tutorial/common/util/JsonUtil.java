@@ -1,11 +1,9 @@
 package cn.gonnaup.tutorial.common.util;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -26,7 +24,7 @@ public final class JsonUtil {
     private JsonUtil() {
     }
 
-    private static final ObjectMapper mapper;
+    public static final ObjectMapper mapper;
 
     static {
         mapper = JsonMapper.builder()
