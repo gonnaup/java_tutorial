@@ -12,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * jdk 动态代理
@@ -83,8 +84,8 @@ public class JdkProxy {
         @Override
         public int transaction(File file) {
             logger.info("print the file {} content", file.getAbsolutePath());
-            try {
-                Files.lines(Paths.get(file.toURI())).forEach(logger::info);
+            try (Stream<String> lines = Files.lines(Paths.get(file.toURI()))) {
+                lines.forEach(logger::info);
             } catch (IOException e) {
                 logger.error(e.getMessage());
             }

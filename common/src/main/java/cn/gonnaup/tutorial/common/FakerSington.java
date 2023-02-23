@@ -16,7 +16,7 @@ public enum FakerSington {
     CN(Locale.CHINA);
     public final Faker FAKER;
 
-    private FakerSington(Locale locale) {
+    FakerSington(Locale locale) {
         FAKER = Faker.instance(locale);
     }
 

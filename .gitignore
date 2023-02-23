@@ -1,5 +1,6 @@
 HELP.md
 **/target/
+*_Ignore.java
 
 ### STS ###
 .apt_generated
