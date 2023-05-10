@@ -31,7 +31,11 @@ public class NettyTimeServer {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
+                    //option()设置的是服务端用于接收进来的连接，对应boss线程组，SO_BACKLOG为服务端接受连接的队列长度，
+                    //如果队列已满，则拒绝连接，默认值win：200,其他：128
                     .option(ChannelOption.SO_BACKLOG, 1024)
+                    //childOption()设置的是接收的客户端连接的参数，对应worker线程组，
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
