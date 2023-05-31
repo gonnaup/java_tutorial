@@ -115,8 +115,7 @@ public class RabbitmqRaw {
      * 消费者
      */
     public static void topicExchangeConsumer() {
-        try {
-            Connection connection = newRabbitConnection();
+        try (Connection connection = newRabbitConnection()) {
             Channel channel = connection.createChannel();
             //声明 Exchange，和生产者相同
             channel.exchangeDeclare(TOPIC_EXCHANGE_NAME, BuiltinExchangeType.TOPIC, true);
