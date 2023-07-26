@@ -4,14 +4,13 @@ import cn.gonnaup.tutorial.common.domain.Commodity;
 import cn.gonnaup.tutorial.common.domain.Order;
 import cn.gonnaup.tutorial.common.util.DomainUtil;
 import cn.gonnaup.tutorial.common.util.JsonUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 import static cn.gonnaup.tutorial.rabbitmq.springboot.RabbitConfig.*;
 
