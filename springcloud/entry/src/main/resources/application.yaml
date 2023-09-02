@@ -5,7 +5,7 @@ spring:
     name: tutorial-entry
   cloud:
     nacos:
-      server-addr: linuxserver.cn:8848
+      server-addr: gonnaup.org:8848
     loadbalancer:
       nacos:
         enabled: true

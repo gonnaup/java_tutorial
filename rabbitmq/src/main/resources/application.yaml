@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   rabbitmq:
-    addresses: linuxserver.cn:5672
+    addresses: gonnaup.org:5672
     username: guest
     password: guest
     virtual-host: /

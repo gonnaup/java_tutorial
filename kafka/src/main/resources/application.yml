@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   kafka:
-    bootstrap-servers: linuxserver.cn:9092
+    bootstrap-servers: gonnaup.org:9092
     admin:
       client-id: tutorial-admin
     listener:
