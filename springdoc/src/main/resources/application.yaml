@@ -3,3 +3,9 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    show-common-extensions: true
+    show-extensions: true
+spring:
+  data:
+    mongodb:
+      uri: mongodb://gonnaup:123456@gonnaup.org:27017/test?retryWrites=true&connectTimeoutMS=10000&authSource=admin
