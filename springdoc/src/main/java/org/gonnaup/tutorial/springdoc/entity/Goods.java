@@ -1,7 +1,6 @@
 package org.gonnaup.tutorial.springdoc.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import jakarta.persistence.Id;
 import lombok.Data;
 import org.gonnaup.tutorial.common.domain.Commodity;
@@ -30,7 +29,7 @@ public class Goods {
     /**
      * 商品名称
      */
-    @SchemaProperty(name = "商品名称")
+    @Schema(description = "商品名称", example = "电脑")
     private String name;
 
     /**
