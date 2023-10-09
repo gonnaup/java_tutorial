@@ -2,7 +2,6 @@ package org.gonnaup.tutorial.kafka.springboot;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -14,14 +13,12 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.Map;
 
 /**
- *
  * 给Json解码器的typeMapper添加信任的包
  *
  * @author gonnaup
  * @version created at 2022/11/17 下午9:19
  * @see org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper
  */
-@Slf4j
 @Configuration
 public class KafkaConfig {
 

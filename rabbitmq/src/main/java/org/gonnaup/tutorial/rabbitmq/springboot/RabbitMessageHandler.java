@@ -1,11 +1,12 @@
 package org.gonnaup.tutorial.rabbitmq.springboot;
 
 import com.rabbitmq.client.Channel;
-import lombok.extern.slf4j.Slf4j;
 import org.gonnaup.tutorial.common.domain.Commodity;
 import org.gonnaup.tutorial.common.domain.JwtString;
 import org.gonnaup.tutorial.common.domain.Order;
 import org.gonnaup.tutorial.common.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,10 @@ import java.util.Objects;
  * @author gonnaup
  * @version created at 2022/11/21 下午12:24
  */
-@Slf4j
 @Component
 public class RabbitMessageHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(RabbitMessageHandler.class);
 
     private static final Map<String, Class<?>> DICT =
             Map.of(Commodity.class.getSimpleName(), Commodity.class,

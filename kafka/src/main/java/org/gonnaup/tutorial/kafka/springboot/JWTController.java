@@ -1,8 +1,9 @@
 package org.gonnaup.tutorial.kafka.springboot;
 
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.gonnaup.tutorial.common.domain.JwtString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -16,9 +17,10 @@ import java.util.concurrent.ExecutionException;
  * @author gonnaup
  * @version created at 2022/11/17 下午4:03
  */
-@Slf4j
 @RestController
 public class JWTController {
+
+    private static final Logger log = LoggerFactory.getLogger(JWTController.class);
 
     @Resource
     KafkaTemplate<String, JwtString> kafkaTemplate;

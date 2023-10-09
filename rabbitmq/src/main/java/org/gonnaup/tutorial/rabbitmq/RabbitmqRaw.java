@@ -1,9 +1,10 @@
 package org.gonnaup.tutorial.rabbitmq;
 
 import com.rabbitmq.client.*;
-import lombok.extern.slf4j.Slf4j;
 import org.gonnaup.tutorial.common.domain.JwtString;
 import org.gonnaup.tutorial.common.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.*;
@@ -19,8 +20,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author gonnaup
  * @version created at 2022/11/19 下午2:00
  */
-@Slf4j
 public class RabbitmqRaw {
+
+    private static final Logger log = LoggerFactory.getLogger(RabbitmqRaw.class);
 
     //'#'匹配0～n个单词，'*'匹配一个单词
     static final String TOPIC_ROUTING_KEY = "topic.token.*";

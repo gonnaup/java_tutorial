@@ -1,11 +1,12 @@
 package org.gonnaup.tutorial.rabbitmq.springboot;
 
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.gonnaup.tutorial.common.domain.Commodity;
 import org.gonnaup.tutorial.common.domain.Order;
 import org.gonnaup.tutorial.common.util.DomainUtil;
 import org.gonnaup.tutorial.common.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author gonnaup
  * @version created at 2022/11/23 下午3:44
  */
-@Slf4j
 @RestController
 public class RandomMessageEmitController {
+
+    private static final Logger log = LoggerFactory.getLogger(RandomMessageEmitController.class);
 
     @Resource
     RabbitTemplate rabbitTemplate;

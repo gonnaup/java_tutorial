@@ -1,6 +1,7 @@
 package org.gonnaup.tutorial.basicknowledge.time;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,8 +15,9 @@ import java.time.format.DateTimeFormatter;
  * @author gonnaup
  * @version created at 2023/9/4 19:44
  */
-@Slf4j
 public class Converter {
+
+    private static final Logger log = LoggerFactory.getLogger(Converter.class);
 
     private static final DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
