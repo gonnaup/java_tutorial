@@ -9,3 +9,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://gonnaup:123456@gonnaup.org:27017/test?retryWrites=true&connectTimeoutMS=10000&authSource=admin
+  datasource:
+    url: jdbc:postgresql://gonnaup.org/gonnaup
+    username: postgres
+    password: 123456
