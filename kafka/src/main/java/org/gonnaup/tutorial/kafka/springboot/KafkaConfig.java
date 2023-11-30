@@ -29,7 +29,7 @@ public class KafkaConfig {
     @Bean
     public DefaultKafkaConsumerFactory<?, ?> kafkaConsumerFactory(
             ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
-        Map<String, Object> configs = this.kafkaProperties.buildConsumerProperties();
+        Map<String, Object> configs = this.kafkaProperties.buildConsumerProperties(null);
         //添加信任包
         configs.put(JsonDeserializer.TRUSTED_PACKAGES, "org.gonnaup.tutorial.kafka.springboot");
         DefaultKafkaConsumerFactory<Object, Object> factory = new DefaultKafkaConsumerFactory<>(
